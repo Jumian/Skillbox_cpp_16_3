@@ -1,5 +1,4 @@
 #include <iostream>
-#include "cstdio"
 #include "sstream"
 #include "cmath"
 
@@ -13,9 +12,8 @@ double calc(double a,double b,char op){
     else return NAN;
 }
 int main() {
-    double a=0,b=0,result=0;
+    double a=0,b=0,result;
     char operation=0;
-    char buf[100];
     do {
         std::cout << "input operation a[+-*/]b:" << std::endl;
         std::string buffer;
@@ -23,9 +21,10 @@ int main() {
         std::stringstream buffer_stream(buffer);
         buffer_stream >> a >> operation >> b;
         result = calc(a, b, operation);
+        buffer_stream.clear();
         if (std::isnan(result))
-            sprintf(buf, "Not correct operation on %.5f and %.5f", a, b);
-        else sprintf(buf, "Result %f", result);
-        std::cout << buf << std::endl;
+            buffer_stream <<"Not correct operation on "<<a <<" and "<< b;
+        else buffer_stream << "Result " <<result;
+        std::cout << buffer_stream.str() << std::endl;
     } while (std::isfinite(result));
 }
